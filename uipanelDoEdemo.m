@@ -1,33 +1,33 @@
 %% Generelle Informationen
-% 
+%
 %   Copyright (c) Lichterfeld Robert-Vincent, 2017
 %
-%   Dieses Werk ist lizenziert unter einer 
-%   Creative Commons Namensnennung - 
-%   Weitergabe unter gleichen Bedingungen 
+%   Dieses Werk ist lizenziert unter einer
+%   Creative Commons Namensnennung -
+%   Weitergabe unter gleichen Bedingungen
 %   4.0 International Lizenz.
-%   
+%
 %   https://creativecommons.org/licenses/by-sa/4.0/
-%   
+%
 % Beschreibung
 %
 % Dieses GUI-Script dient zur Verwaltung von Unterprogrammen.
-% Das Paket an Programmen dient zur Erstellung von Versuchsplänen,
+% Das Paket an Programmen dient zur Erstellung von VersuchsplÃ¤nen,
 % der Auswertung von Messwerten und der Berechnung eines Regresionspolynoms.
 %
 %......................................................................
-% Änderungslog
+% Ã„nderungslog
 %
 % 28/12/2017  Robert-Vincent Lichterfeld
-%             Erstellung: Dieses GUI 
+%             Erstellung: Dieses GUI
 % 02/01/2018  Author: Lichterfeld, Robert-Vincent
 %             Anpassung: Demo-Version mit begrenzten Unterprogrammen
 
 
-% Aufräumen
+% AufrÃ¤umen
 close all;
 %clear all;
-% Alle Variablen ausser fg02 löschen
+% Alle Variablen ausser fg02 lÃ¶schen
 %clear -x fg02;
 clc;
 
@@ -62,7 +62,7 @@ clear ME;
 % Aktuelles Verzeichnis speichern
 wStrct = what();
 currntdir = wStrct.path;
-% Nutzerverzeichnis öffnen
+% Nutzerverzeichnis Ã¶ffnen
 cd();
 
 % Speichern der Daten
@@ -83,8 +83,8 @@ pathname = pathnameS;
 
 clear filenameS fltidx;
 %-----------------------------------------------------------
-%% Ordner für Hilfsdateien erstellen
-% Prüfen ob Ordner bereits existiert, sonst Ornder erstellen
+%% Ordner fÃ¶r Hilfsdateien erstellen
+% PrÃ¼fen ob Ordner bereits existiert, sonst Ornder erstellen
 
 % Namen des Orders erstellen
 dte = (strftime ("%Y-%m-%d", localtime (time ())));
@@ -93,15 +93,15 @@ dirNme = sprintf('DatenVrsPlng%s', dte);
 
 if dirNme(end) ~= '\', dirNme = [dirNme, '\']; end;
 
-% Arbeitsverzeichnis öffnen
+% Arbeitsverzeichnis Ã¶ffnen
 cd(pathname);
 
-% Verzeichnis erstellen falls nötig
+% Verzeichnis erstellen falls nÃ¶tig
 if (exist(dirNme, 'dir') == 0); mkdir(dirNme); end;
 
 % Pfad zum Hilfsverzeichnis aufbauen
 auxdirpath = sprintf('%s%s%s', pathname, '\', dirNme);
-% Hilfsverzeichnis öffnen
+% Hilfsverzeichnis Ã¶ffnen
 cd(auxdirpath);
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -110,11 +110,11 @@ cd(auxdirpath);
 diary on; diary auxLogFile.txt;
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-% Zurück in aktuelles Verzeichnis wechseln
+% ZurÃ¼ck in aktuelles Verzeichnis wechseln
 cd(currntdir);
 %.............................................................
 
-% Zeitstempel für das diary erzeugen
+% Zeitstempel fÃ¼r das diary erzeugen
 tstmpDiary = (strftime ("%Y-%m-%d_%H:%M:%S", localtime (time ())));
 txtProg = 'uipanelDoE';
 txtToDiary = fprintf('\n---------\nLogfile: %s | %s\n---------\n', tstmpDiary, txtProg);
@@ -123,7 +123,7 @@ clear txtToDiary;
 
 
 % Erstellen eines figure windows und dieses auf handle referenzieren
-fg02 = figure(2); 
+fg02 = figure(2);
 % Eigenschaften zum handle antragen, durch den Befehl set(...)
 set(fg02, 'Name', 'DoE UI PANEL - Testversion', 'NumberTitle', 'off');
 % relative Angabe [left bottom width height]
@@ -137,26 +137,26 @@ set(uipanel, "BorderType", "line", "BorderWidth", 0.5);
 %% Erstellung der Elemente
 
 %===============================================
-%%  Schaltflächen im Menüband erstellen
+%%  SchaltflÃ¤chen im MenÃ¼band erstellen
 %===============================================
 %   create a entry in the uimenu
 % Entry in uimenu closes the current figure
 uim01 = uimenu (fg02, "label", "Close", "accelerator", "q", ...
                 "callback", "diary off, close (gcf)");
-           
+
 % Entry in uimenu shows information about the program
 uim04 = uimenu (fg02, "label", "Uber", ...
                 "callback", "makeInfo(auxdirpath, currntdir)");
 
 %===============================================
-%%  Hintergrundbild einfügen
+%%  Hintergrundbild einfÃ¼gen
 %===============================================
 %   create a entry for an image (sloppy background image)
 % %h = imshow (im, [low, high]);
 %himg = imshow ('Vplan3E3S02.jpg');
 
 %===============================================
-%%  Text hinzufügen
+%%  Text hinzufÃ¼gen
 %===============================================
 
 %   create a plain text
@@ -164,104 +164,104 @@ uim04 = uimenu (fg02, "label", "Uber", ...
 text1 =  uicontrol (fg02, ...
                     "style", "text", ...
                     "string", "Basis DoE", ...
-                    "FontSize", 16, "FontWeight", "Demi", ...
+                    "FontSize", 16, "FontWeight", "bold", ...
                     "tooltipstring", "Programm mit OCTAVE erstellt", ...
                     "Units","normalized","position", [0 0.9 1 0.1], ...
                     "ForegroundColor",[(254/255), (255/255), (255/255)], ...
                     "BackgroundColor", [(23/255), (62/255), (67/255)]);
-                    
+
 
 %===============================================
-%%  Schaltflächen erstellen
+%%  SchaltflÃ¤chen erstellen
 %===============================================
 % relative Angabe [left bottom width height]
 
 %   create a button (default style)
 % Display some text and run a file
 btn01 = uicontrol (fg02, "string", "Versuchsplan erstellen", ...
-                 "FontWeight", "Demi", "FontSize", 10,...
+                 "FontWeight", "bold", "FontSize", 10, ...
                  "tooltipstring", "Erstellt einen vollfaktoriellen Versuchsplan", ...
                  "Units","normalized","position", [0.05 0.7 0.45 0.1], ...
                  %"position",[10 300 150 40], ...
                  "BackgroundColor",[(250/255), (229/255), (150/255)], ...
                  "ForegroundColor",[(29/255), (33/255), (32/255)], ...
                  "callback", ...
-                 "disp('Versuchsplan erstellen wurde gedrückt!'), ...
+                 "disp('Versuchsplan erstellen wurde gedrÃ¼ckt!'), \
                  DOE2StpVpV03(auxdirpath)");
-                 
-       
+
+
 %   create a button (default style)
 % Display some text and run a file
 btn04 = uicontrol (fg02, "string", "Messdaten auswerten", ...
-                 "FontWeight", "Demi", "FontSize", 10,...
+                 "FontWeight", "bold", "FontSize", 10, ...
                  "tooltipstring", "Auswertung von Messdaten nach statistischen Merkmalen", ...
                  "Units","normalized","position", [0.05 0.55 0.45 0.1], ...
                  %"position",[10 225 150 40], ...
                  "BackgroundColor",[(250/255), (229/255), (150/255)], ...
                  "ForegroundColor",[(29/255), (33/255), (32/255)], ...
                  "callback", ...
-                 "disp('Messdaten auswerten wurde gedrückt!'), ...
+                 "disp('Messdaten auswerten wurde gedrÃ¼ckt!'), \
                  StatisticMWerteV01(auxdirpath)");
-                 
-                 
+
+
 %   create a button (default style)
 % Display some text and run a file
 btn06 = uicontrol (fg02, "string", "Analyse der Daten", ...
-                 "FontWeight", "Demi", "FontSize", 10,...
+                 "FontWeight", "bold", "FontSize", 10, ...
                  "tooltipstring", "Erstellen einer Regressionsfunktion", ...
                  "Units","normalized","position", [0.05 0.4 0.45 0.1], ...
                  %"position",[10 150 150 40], ...
                  "BackgroundColor",[(250/255), (229/255), (150/255)], ...
                  "ForegroundColor",[(29/255), (33/255), (32/255)], ...
                  "callback", ...
-                 "disp('Analyse der Daten wurde gedrückt!'), ...
+                 "disp('Analyse der Daten wurde gedrÃ¼ckt!'), \
                  msgDemo");
 
-                 
+
 
 %   create a button (default style)
-% Select a file                 
+% Select a file
 btn20 = uicontrol (fg02, "string", "Beenden mit Logfile", ...
-                 "FontWeight", "Demi", "FontSize", 10,...
+                 "FontWeight", "bold", "FontSize", 10, ...
                  "Units","normalized","position", [0.525 0.1 0.4 0.1], ...
                  %"position",[200 100 150 40], ...
                  "BackgroundColor",[(52/255), (73/255), (94/255)], ...
                  "ForegroundColor",[(236/255), (240/255), (241/255)], ...
                  "tooltipstring", "Schliesst das Programm und zeigt den Log-File", ...
                  "callback", "showLogfile(pathname, currntdir, dirNme)");
-                 
 
-                 
-                 
+
+
+
 %===============================================
 %%  Fehlende Pakete installieren
 %===============================================
 % Liste der installierten Pakete erstellen
 [loPKG] = pkg('list');
-% Liste nötiger Pakete
+% Liste nÃ¶tiger Pakete
 zuPKG = ['general'; 'io'; 'statistics'];
 % Durchsuchen der Liste nach relevanten Paketen
 for nP = 1:size(zuPKG,1)
   for lstP = 1:size(loPKG,2)
-    % Vorhandene und nötige Pakete vergleichen
+    % Vorhandene und nÃ¶tige Pakete vergleichen
     if strcmp( (loPKG{1,lstP}.name), deblank(zuPKG(nP, :)) );
-      % Nötiges Paket ist vorhanden
+      % NÃ¶tiges Paket ist vorhanden
       mrk = 1;
       break;
     else strcmp( (loPKG{1,lstP}.name), deblank(zuPKG(nP, :)) );
-      % Nötiges Paket ist nicht vorhanden
+      % NÃ¶tiges Paket ist nicht vorhanden
       mrk = 0;
     endif
     %
   endfor
-  % Prüfen ob Paket heruntergeladen und installiert werden muss
+  % PrÃ¼fen ob Paket heruntergeladen und installiert werden muss
   if mrk == 1;
     % Kein Paket heruntergeladen und installieren
     txtPKG = fprintf('\nDas Paket: %s ist vorhanden\n', deblank(zuPKG(nP, :)) );
     fprintf('\n');
   else
     % Paket heruntergeladen und installieren
-    txtPKG = fprintf('\nDas Paket: %s ist nicht vorhanden\n(pkg install -forge <package>)\n',...
+    txtPKG = fprintf('\nDas Paket: %s ist nicht vorhanden\n(pkg install -forge <package>)\n', ...
                      deblank(zuPKG(nP, :)) );
     fprintf('\n');
     %   Information an Nutzer
@@ -276,7 +276,7 @@ for nP = 1:size(zuPKG,1)
 endfor
 %
 clear lstP nP zuPKG loPKG;
-%  
+%
 
 %= = = = = = = = = = = = = = = = = = = = = = = = = = = =
 %% Funktion: Erstellung und Anzeigen der Information
@@ -285,36 +285,36 @@ clear lstP nP zuPKG loPKG;
 function makeInfo(auxdirpath, currntdir)
 %% Informationsdatei schreiben
 % Inhalt
-contntInfo = sprintf(['Generelle Informationen\r\n\r\n'...
-    'Copyright (c) Lichterfeld Robert-Vincent, 2017\r\n\r\n'...
-    'Dieses Werk ist lizenziert unter einer\r\n'...
-    'Creative Commons Namensnennung -\r\n'...
-    'Weitergabe unter gleichen Bedingungen\r\n'...
-    '4.0 International Lizenz.\r\n\r\n'...
-    'https://creativecommons.org/licenses/by-sa/4.0/\r\n\r\n\r\n'...
-    'Beschreibung\r\n\r\n'...
-    'Dieses Script dient zum Erstellen und Speichern von '...
-    'Versuchsplänen.\r\n'... 
-    'Der generierte Versuchsplan wird im .csv-Format '...
-    'gespeichert.\r\n'...
-    'Zudem werden Daten zu Messwerten mit statistischen Methoden\r\n'...
+contntInfo = sprintf(['Generelle Informationen\r\n\r\n' ...
+    'Copyright (c) Lichterfeld Robert-Vincent, 2017\r\n\r\n' ...
+    'Dieses Werk ist lizenziert unter einer\r\n' ...
+    'Creative Commons Namensnennung -\r\n' ...
+    'Weitergabe unter gleichen Bedingungen\r\n' ...
+    '4.0 International Lizenz.\r\n\r\n' ...
+    'https://creativecommons.org/licenses/by-sa/4.0/\r\n\r\n\r\n' ...
+    'Beschreibung\r\n\r\n' ...
+    'Dieses Script dient zum Erstellen und Speichern von ' ...
+    'VersuchsplÃ¤nen.\r\n' ...
+    'Der generierte Versuchsplan wird im .csv-Format ' ...
+    'gespeichert.\r\n' ...
+    'Zudem werden Daten zu Messwerten mit statistischen Methoden\r\n' ...
     'betrachtet und ein Regressionspolynom aus\r\n' ...
     'Eingaben sowie Ergebnissen des Versuchsplans gebildet.\r\n']);
 
-% Pfad und Dateinamen für Informationsdatei
+% Pfad und Dateinamen fÃ¼r Informationsdatei
 % txtinfo = sprintf('%s%s', pathname, dirpath, 'auxInfoAbout.txt');
 
-% Arbeitsverzeichnis öffnen
+% Arbeitsverzeichnis Ã¶ffnen
 cd(auxdirpath);
 
 % Informationsdatei schreiben
 % dlmwrite(txtinfo, contntInfo,'delimiter', '', 'newline', 'pc');
 dlmwrite('auxInfoAbout.txt', contntInfo, 'delimiter', '', 'newline', 'pc');
 
-% Prüfen ob LogFile bereits existiert
+% PrÃ¼fen ob LogFile bereits existiert
 if (exist('auxInfoAbout.txt','file') > 0);
-  % Logdatei durch Systemprogramm öffnen lassen
-  %winopen('auxLogFile.txt'); <- Nur in MATLAB möglich
+  % Logdatei durch Systemprogramm Ã¶ffnen lassen
+  %winopen('auxLogFile.txt'); <- Nur in MATLAB mÃ¶glich
   %= = = = = = = = = =
   % Open an external file with an external program
   open('auxInfoAbout.txt');
@@ -323,12 +323,12 @@ else
   % do nothing
 endif
 
-% Zurück in aktuelles Verzeichnis wechseln
+% ZurÃ¼ck in aktuelles Verzeichnis wechseln
 cd(currntdir);
 %------------------
 endfunction
 
-                   
+
 %= = = = = = = = = = = = = = = = = = = = = = = = = = = =
 %% Funktion: Erstellung und Ausgabe des Logfiles
 %= = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -344,19 +344,19 @@ if dirNme(end) ~= '/', dirNme = [dirNme '/'];
 else
 end;
 
-% Arbeitsverzeichnis öffnen
+% Arbeitsverzeichnis Ã¶ffnen
 cd(pathname);
 
-% Prüfen ob der Hilfsordner bereits existiert
+% PrÃ¼fen ob der Hilfsordner bereits existiert
 if (exist(dirNme, 'dir') > 0);
     % Pfad zum Hilfsverzeichnis aufbauen
     auxdirpath = sprintf('%s%s', pathname, dirNme);%
-    % Hilfsverzeichnis der Logdatei öffnen
+    % Hilfsverzeichnis der Logdatei Ã¶ffnen
     cd(auxdirpath);
-    % Prüfen ob LogFile bereits existiert
+    % PrÃ¼fen ob LogFile bereits existiert
     if (exist('auxLogFile.txt','file') > 0);
-        % Logdatei durch Systemprogramm öffnen lassen
-        %winopen('auxLogFile.txt'); <- Nur in MATLAB möglich
+        % Logdatei durch Systemprogramm Ã¶ffnen lassen
+        %winopen('auxLogFile.txt'); <- Nur in MATLAB mÃ¶glich
         %= = = = = = = = = =
         % Open an external file with an external program
         open('auxLogFile.txt');
@@ -364,7 +364,7 @@ if (exist(dirNme, 'dir') > 0);
     end%file
 end%dirpath
 
-% Zurück in aktuelles Verzeichnis wechseln
+% ZurÃ¼ck in aktuelles Verzeichnis wechseln
 cd(currntdir);
 
 % Mitschreiben des diary beenden
@@ -392,4 +392,4 @@ clear sprnt1 mb1;
 endfunction
 %..............................................................
 
-                 
+

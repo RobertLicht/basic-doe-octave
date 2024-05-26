@@ -7,9 +7,9 @@ function StatisticMWerteV01(auxdirpath)
 % 16/12/2017    Author: Lichterfeld, Robert-Vincent
 %               Edit: Messreihen mit Beschriftung
 % ??/??/2017    Author: Lichterfeld, Robert-Vincent
-%               Edit: 
-%               Edit: 
-%               Edit: 
+%               Edit:
+%               Edit:
+%               Edit:
 
 
 %   Link to MATLAB help about DOE
@@ -31,7 +31,7 @@ pkg load statistics;
 %pkg load symbolic;
 %pkg load geometry;
 %pkg load socketes;
-%pkg load sci_cosim; 
+%pkg load sci_cosim;
 
 
 %   Settings for Paging Screen Output
@@ -42,7 +42,7 @@ page_output_immediately (0);
 page_screen_output (0);
 
 
-%% Aufräumen
+%% AufrÃ¤umen
 %close all;
 %clear all;
 %clc;
@@ -59,7 +59,7 @@ nMR = 20;
 %% ProzessUbergrenze (Abweichung von 0)
 %valPrzUGr = -0.5;
 %   Anzahl der Klassen festlegen
-% Faustregel: Mindestens fünf Messwerte je Klasse 
+% Faustregel: Mindestens fÃ¼nf Messwerte je Klasse
 %anzKl = round(nMR/3);
 %anzKl = round(sqrt( nMR/3 ));
 anzKl = round(sqrt( nMR/1 ));
@@ -69,8 +69,8 @@ wStrct = what();
 currntdir = wStrct.path;
 
 %-----------------------------------------------------------
-%% Ordner für Hilfsdateien erstellen
-% Prüfen ob Ordner bereits existiert, sonst Ornder erstellen
+%% Ordner fÃ¼r Hilfsdateien erstellen
+% PrÃ¼fen ob Ordner bereits existiert, sonst Ornder erstellen
 
 %% Namen des Orders erstellen
 %dte = (strftime ("%Y-%m-%d", localtime (time ())));
@@ -80,15 +80,15 @@ currntdir = wStrct.path;
 %
 %if dirNme(end) ~= '\', dirNme = [dirNme, '\']; end;
 
-%% Arbeitsverzeichnis öffnen
+%% Arbeitsverzeichnis Ã¶ffnen
 %cd(auxdirpath);
 
-%% Verzeichnis erstellen falls nötig
+%% Verzeichnis erstellen falls nÃ¶tig
 %if (exist(dirNme, 'dir') == 0); mkdir(dirNme); end;
 %
 %% Pfad zum Hilfsverzeichnis aufbauen
 %auxdirpath = sprintf('%s%s%s', pathname, '\', dirNme);
-%% Hilfsverzeichnis öffnen
+%% Hilfsverzeichnis Ã¶ffnen
 %cd(auxdirpath);
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -97,11 +97,11 @@ currntdir = wStrct.path;
 %diary on; diary auxLogFile.txt;
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-%% Zurück in aktuelles Verzeichnis wechseln
+%% ZurÃ¼ck in aktuelles Verzeichnis wechseln
 %cd(currntdir);
 %.............................................................
 
-% Zeitstempel für das diary erzeugen
+% Zeitstempel fÃ¼r das diary erzeugen
 tstmpDiary = (strftime ("%Y-%m-%d_%H:%M:%S", localtime (time ())));
 txtProg = 'Messdaten auswerten';
 txtToDiary = fprintf('\n---------\nLogfile: %s | %s\n---------\n', tstmpDiary, txtProg);
@@ -118,18 +118,18 @@ if strcmp(btnChoice, 'JA')
   %===============================================
   %%  Daten aus Datei lesen
   %===============================================
-  
-  % Nutzerverzeichnis öffnen
+
+  % Nutzerverzeichnis Ã¶ffnen
   cd();
 
   %   Datei auswaehlen
   [fname, fpath, fltidx] = uigetfile ({"*.xlsx", "Excel2007+"; ...
                                       "*.xls", "Excel97-2003"; ...
                                       "*.ods", "OpenOffice"}, "Select File");
-                                                
+
   %   Build absolute path
   fullpath = sprintf('%s%s', fpath, fname);
-  
+
   % In das Ursprungsverzeichnis wechseln
   cd(currntdir);
 
@@ -146,10 +146,10 @@ if strcmp(btnChoice, 'JA')
   %= = = = = = = = = =
   % Nutzereingabe
   txtWSNmbr = sprintf('Tabellenblattnummer eingeben:');
-  nbrWrkSht = str2double(inputdlg (txtWSNmbr, 'Tabellenblatt auswaehlen')); 
+  nbrWrkSht = str2double(inputdlg (txtWSNmbr, 'Tabellenblatt auswaehlen'));
   clear txtWSNmbr;
   %------------------
-  %   Nutzereigabe prüfen
+  %   Nutzereigabe prÃ¼fen
   % Testen auf leer
   if isempty(nbrWrkSht);
     % Standardwert vorgeben
@@ -158,7 +158,7 @@ if strcmp(btnChoice, 'JA')
     % Informationstext
     sprnt1 = sprintf('Ungueltige Eingabe!\nSetze Wert zu: %1.0d', nbrWrkSht);
     mb1 = msgbox(sprnt1, 'Eingabefehler', "help");
-  
+
   else
     % Keine Aktion
   endif
@@ -185,7 +185,7 @@ if strcmp(btnChoice, 'JA')
     mb1 = msgbox(sprnt1, 'Eingabefehler', "help");
   else
     % Keine Aktion
-  endif 
+  endif
   %
 %===============================================
 %%  Dialog mit Nutzer
@@ -203,7 +203,7 @@ if strcmp(btnChoice, 'JA')
   %          defaults = {"1.10", "2.20", "3.30"};
   %          rowscols = [1,10; 2,20; 3,30];
   %          dims = inputdlg (prompt, "Enter Box Dimensions", rowscols, defaults);
-  
+
   prmptExcel = {'|-|Startspalte', '|->Startzeile', '|_|Endspalte', '->| Endzeile'};
                defaults = {"A", "1", "H", "8"};
                rowscols = [1.1; 1.2; 1.8; 1.9];
@@ -212,9 +212,9 @@ if strcmp(btnChoice, 'JA')
   %.....................................
   % Eingegebene Dimensionen durchlaufen
   %.....................................
-  %= = = = = = = = = =  
+  %= = = = = = = = = =
   for nDim = 1:size(dims,1);
-    %   Nutzereigabe prüfen
+    %   Nutzereigabe prÃœfen
     % Testen auf leer
     if isempty(dims{nDim});
       % Standardwert vorgeben
@@ -228,24 +228,24 @@ if strcmp(btnChoice, 'JA')
     else
       % Keine Aktion
     endif
-  
+
 %   % Testen auf Zeichen
 %   if ischar(dims{nDim});
 %      % Eingabe in Grossschreibung umwandeln
 %     inpt = toupper(dims{nDim});
 %     % Eingabe in double wandeln
 %     if isnan(str2double(inpt));
-%        % Zeichen in ascii-Werte überführen
+%        % Zeichen in ascii-Werte ÃœberfÃ¼hren
 %        dims{nDim} = (toascii(inpt) - 64);
 %     else
 %       % Zahlen vom Typ String zu Double wandeln
 %       dims{nDim} = str2double(inpt);
 %     endif
-%     % 
+%     %
 %   else
 %     % Keine Aktion
 %   endif
-  
+
     % Testen auf NaN
     if isnan(dims{nDim});
       % Standardwert vorgeben
@@ -261,7 +261,7 @@ if strcmp(btnChoice, 'JA')
     endif
     %
     %----------------
-  
+
   endfor
   clear mb1 sprnt1 txtTtl txtEFmin txtEFmax;
   %= = = = = = = = = =
@@ -292,7 +292,7 @@ endif
   %............
   % Legende erstellen
    for nMess = 1:nMR
-    % Beschriftung für Legende erstellen
+    % Beschriftung fÃ¼r Legende erstellen
     if nMess < 10;
       txtLegndSV(nMess, :) = sprintf('Messreihe 00%d', nMess);
     elseif nMess < 100;
@@ -317,7 +317,7 @@ else
    % Werte der Messreihen generieren
    for nMess = 1:nMR
     xMessR(:, nMess) = ( [(2*randn(1))*randn(1, nGenW)]');
-    % Beschriftung für Legende erstellen
+    % Beschriftung fÃ¼r Legende erstellen
     if nMess < 10;
       txtLegndSV(nMess, :) = sprintf('Messreihe 00%d', nMess);
     elseif nMess < 100;
@@ -332,7 +332,7 @@ endif
 %===============================================
 %%  Dialog mit Nutzer: Toleranzgrenzen
 %===============================================
-%= = = = = = = = = =  
+%= = = = = = = = = =
 %% User input
 txtPrzOGr = sprintf('Wert der Prozess-Obergrenze eingeben:');
 valPrzOGr = (str2double(inputdlg (txtPrzOGr, 'Toleranzgrenzen')));
@@ -344,7 +344,7 @@ clear txtPrzUGr;
 % Eingaben auf Vektor speichern
 inptVal = [valPrzOGr; valPrzUGr];
 %= = = = = = = = = =
-%   Nutzereigabe prüfen
+%   Nutzereigabe prÃ¼fen
 % Default-Korrekturwerte vorgeben
 corrVal = [0.5; -0.5];
 
@@ -403,11 +403,11 @@ clear mb1 sprnt1;
 
 %%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 % Erstellen eines figure windows und dieses auf handle referenzieren
-fg08 = figure(08); 
+fg08 = figure(08);
 % Eigenschaften zum handle antragen, durch den Befehl set(...)
 set(fg08,'Name','Werte der Messreihen','NumberTitle','on');
 % relative Angabe [left bottom width height]
-set(fg08,'Units','normalized','Position',[0.55 0.35 0.35 0.5]); 
+set(fg08,'Units','normalized','Position',[0.55 0.35 0.35 0.5]);
 if size(xMessR,1) < 2;
   for nM = 1:size(xMessR,2);
     plt08 = plot((xMessR(nM).^0), xMessR(nM), 'x', 'LineWidth', 2);
@@ -425,11 +425,11 @@ lg08 = legend(txtLegndSV);
 set(lg08, 'Location', 'Westoutside','Orientation','Vertical');
 %%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %%===============================================
-%%%  Ausreißer nach 3*SIGMA-Regel aussortieren
-%%===============================================  
-%% Beträge der Abweichungen berechnen
-%BetrAbW = abs(xMessR - ( mean(xMessR, "a")) );
-%% Abweichungen im Betrag aussortieren wenn größer als Standardabweichung
+%%%  AusreiÃŸer nach 3*SIGMA-Regel aussortieren
+%%===============================================
+%% BetrÃ¤ge der Abweichungen berechnen
+%BetrAbW = abs(xMessR - ( mean(xMessR, "all")) );
+%% Abweichungen im Betrag aussortieren wenn grÃ¶ÃŸer als Standardabweichung
 %for nS = 1:size(BetrAbW,2);
 %  for nZ = 1:size(BetrAbW,1);
 %    if BetrAbW(nZ, nS) < ( std(xMessR, 0) );
@@ -448,15 +448,15 @@ set(lg08, 'Location', 'Westoutside','Orientation','Vertical');
 %===============================================
 % Mitttelwerte zu den Messreihen bilden
 for nMess = 1: size(xMessR,2)
-  xMess(nMess, 1) = mean(xMessR(:,nMess), "a");
+  xMess(nMess, 1) = mean(xMessR(:,nMess), "all");
 endfor
 %%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 % Erstellen eines figure windows und dieses auf handle referenzieren
-fg10 = figure(10); 
+fg10 = figure(10);
 % Eigenschaften zum handle antragen, durch den Befehl set(...)
 set(fg10,'Name','Mittelwerte der Messreihen','NumberTitle','on');
 % relative Angabe [left bottom width height]
-set(fg10,'Units','normalized','Position',[0.55 0.15 0.35 0.5]); 
+set(fg10,'Units','normalized','Position',[0.55 0.15 0.35 0.5]);
 plt10 = plot(xMess, 'o', 'LineWidth', 2); hold on; grid on; hold off;
 title('Mittelwerte');
 xlabel('# Messreihe'); ylabel('Wert');
@@ -469,7 +469,7 @@ fprintf('\n===============================================\n');
 fprintf('Statistische Betrachtungen\n');
 fprintf('===============================================\n');
 % Arithmetischer Mittelwert
-empMW = mean(xMess, "a");
+empMW = mean(xMess, "all");
 fprintf('\nArithmetischer Mitttelwert der Messreihen: %1.3f\n', empMW);
 % Median-Wert
 mediW = median(xMess);
@@ -477,7 +477,7 @@ fprintf('\nMedian der Messreihen: %1.3f\n', empMW);
 % Empierische Standardabweichung
 empStd = std(xMess, 0);
 fprintf('\nEmpierische Standardabweichung der Messreihen: %1.3f\n', empStd);
-% Mittelwert-Varianz (Schätzwert für die Schwankungsbreite des Mittelwertes)
+% Mittelwert-Varianz (SchÃŸtzwert fÃ¼r die Schwankungsbreite des Mittelwertes)
 if size(xMess,1) < 4;
   fprintf('\n>> Sehr wenige Stichproben! (Possionverteilung?)\n');
   varMW = sqrt(empMW);
@@ -487,7 +487,7 @@ elseif 4 <= size(xMess,1) || size(xMess,1) <= 10;
   varMW = sqrt((size(xMess,1)-1)/(size(xMess,1)-3))*(empStd/(sqrt(size(xMess,1))));
   fprintf('Mittelwert-Varianz (Schwankungsbreite des Mittelwertes): %1.3f\n', varMW);
 else 10 < size(xMess,1);
-  fprintf('\n>> Genügend Stichproben -> Erwartungswert nach Normalverteilung\n');
+  fprintf('\n>> GenÃ¼gend Stichproben -> Erwartungswert nach Normalverteilung\n');
   varMW = ( empStd/sqrt(length(xMess)) );
   fprintf('Mittelwert-Varianz (Schwankungsbreite des Mittelwertes): %1.3f\n', varMW);
 endif
@@ -500,7 +500,7 @@ fprintf('\nSchiefe der Verteilung: %1.3f\n', schiefe);
 fprintf('\n\n');
 
 %===============================================
-%%  Klassen für Messwerte Bilden und Häufigkeit bestimmen
+%%  Klassen fÃ¼r Messwerte Bilden und HÃ¤ufigkeit bestimmen
 %===============================================
 %   Spannweite der Messwerte
 %xSp = max(xMess) - min(xMess);
@@ -516,30 +516,30 @@ stpKl = xSp/anzKl;
 %%KLxM(:,:) = NaN;
 %for nKl = 1: anzKl
 %  %   Messwerte durchsehen
-%  % Initialisieren und Rücksetzen von Werten
+%  % Initialisieren und RÃ¼cksetzen von Werten
 %  nFreq = 0;
 %  for nx = 1 : (length(xMess))
 %    %   Messwerte der entsprechenden Klasse zuordnen
 %    if (min(xMess)+(stpKl*(nKl-1))) <= xMess(nx) && xMess(nx) < (min(xMess)+(stpKl * nKl))
 %      % Klassenmatrix aufbauen
 %      KLxM(nx, nKl) = xMess(nx);
-%      % Häufigkeit in der Klasse
+%      % HÃ¤ufigkeit in der Klasse
 %      nFreq = (nFreq + 1);
 %    else
 %      % do nothing
-%      
+%
 %      %
 %    endif
-%    
+%
 %    %
 %  endfor
 %  % Klassenmittelwert bestimmen
 %  KlMitlw = ( ((min(xMess)+(stpKl * nKl))-(stpKl*(nKl-1)) ) / nFreq);
 %  % Mittelwert in Matrix speichern
 %  KLfreq(1, nKl) = KlMitlw;
-%  % Häufigkeit in Matrix speichern
-%  KLfreq(2, nKl) = int16(nFreq);  
-%  % 
+%  % HÃ¤ufigkeit in Matrix speichern
+%  KLfreq(2, nKl) = int16(nFreq);
+%  %
 %endfor
 %%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -549,7 +549,7 @@ stpKl = xSp/anzKl;
 %% Werte aufbereiten
 %   Interne Histogrammfunktion nutzen
 [freqKLr, valKL] = hist(xMess, anzKl);
-% Häufigkeitswerte normieren
+% HÃ¤ufigkeitswerte normieren
 freqKL = freqKLr/(max(freqKLr));
 
 %-.-.-.-.-.-.-.-.-.-
@@ -557,9 +557,9 @@ freqKL = freqKLr/(max(freqKLr));
 %pDnsity(1, 1) = abs( freqKL(1) / (min(xMess) - valKL(1)) );
 pDnsityR(1, 1) = abs( freqKLr(1) / (min(xMess)) );
 for fj = 1 : (length(valKL)-1)
-  % Häufigkeit durch Intervallbreite teilen min(xMess)
+  % HÃ¤ufigkeit durch Intervallbreite teilen min(xMess)
   pDnsityR((fj+1), 1) = abs( freqKLr(fj+1) / (valKL(fj) - valKL(fj+1)) );
-  
+
 endfor
 % Wahrscheinlichkeitsdichte-Werte normieren
 pDnsity = pDnsityR/(max(pDnsityR));
@@ -575,7 +575,7 @@ varMWplt = [varMW, (0.5*max(freqKL))];
 
 %%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 % Erstellen eines figure windows und dieses auf handle referenzieren
-fg11 = figure(11); 
+fg11 = figure(11);
 % Eigenschaften zum handle antragen, durch den Befehl set(...)
 set(fg11,'Name','Histogramm der Messwerte','NumberTitle','on');
 % relative Angabe [left bottom width height]
@@ -591,7 +591,7 @@ hold on; grid on;
 %   Wahrscheinlichkeitsdichte darstellen
 %%.................................
 % compute the probability density function
-prpDnsW1 = stdnormal_cdf(freqKL);
+%prpDnsW1 = stdnormal_cdf(freqKL);
 % Wahrscheinlichkeitsdichte darstellen
 %plt0361 = plot(valKL, prpDnsW1, '-sg', 'LineWidth', 1.5);
 %%  Wahrscheinlichkeitsdichte darstellen
@@ -602,7 +602,7 @@ plt01 = plot([empMWplt(1), empMWplt(1)], [0, empMWplt(2)], '-k', 'LineWidth', 4)
 %txtplt01 = text(empMWplt(1,1), empMWplt(1,2), num2str(empMWplt(1,1)));
 %   Formatierung: Text empierischer Mittelwert
 txtMWplt01 = sprintf('\\mu: %1.3f', empMWplt(1));
-%   Beschriftung zum empierischen Mittelwert erstellen 
+%   Beschriftung zum empierischen Mittelwert erstellen
 txtplt01 = text((1.0*empMWplt(1)), (1.01*empMWplt(2)), txtMWplt01);
 %
 %   Empierische Standardabweichung darstellen
@@ -688,9 +688,9 @@ txtplt382 = text((valPrzUGr), (1.11*empStdplt(2)), ['UG: ', num2str(valPrzUGr)])
 %
 hold off;
 title('Histogramm', 'FontSize', 14);
-xlabel('Wert', 'FontSize', 12); ylabel('Häufigkeit und Dichte', 'FontSize', 12);
+xlabel('Wert', 'FontSize', 12); ylabel('HÃ¤ufigkeit und Dichte', 'FontSize', 12);
 %   Legende
-lg11 = legend('Häufigkeitsverteilung', 'Wahrscheinlichkeitsdichte', ...
+lg11 = legend('HÃ¤ufigkeitsverteilung', 'Wahrscheinlichkeitsdichte', ...
               'Mittelwert (arithmetisch)', ...
               'Location', 'Southoutside', 'Orientation', 'Horizontal');
 % Hinweis zum Prozentualen Anteil der Werte im Bereich der Std.-Abweichungen

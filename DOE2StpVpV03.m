@@ -8,8 +8,8 @@ function DOE2StpVpV03(auxdirpath)
 %               Edit: Darstellung Versuchsraum
 % 26/12/2017    Author: Lichterfeld, Robert-Vincent
 %               Edit: Wertebereich in Excel selektieren
-%               Edit: 
-%               Edit: 
+%               Edit:
+%               Edit:
 
 
 %   Link to MATLAB help about DOE
@@ -33,7 +33,7 @@ pkg load statistics;
 %pkg load symbolic;
 %pkg load geometry;
 %pkg load socketes;
-%pkg load sci_cosim; 
+%pkg load sci_cosim;
 
 
 %   Settings for Paging Screen Output
@@ -44,7 +44,7 @@ page_output_immediately (0);
 page_screen_output (0);
 
 
-% Aufräumen
+% AufrÃ¤umen
 %close all;
 %clear all;
 %clc;
@@ -61,7 +61,7 @@ page_screen_output (0);
 % Aktuelles Verzeichnis speichern
 wStrct = what();
 currntdir = wStrct.path;
-% Nutzerverzeichnis öffnen
+% Nutzerverzeichnis Ã¶ffnen
 cd(auxdirpath);
 
 % Speichern der Daten
@@ -83,8 +83,8 @@ pathname = pathnameS;
 clear fltidx;
 
 %-----------------------------------------------------------
-%% Ordner für Hilfsdateien erstellen
-% Prüfen ob Ordner bereits existiert, sonst Ornder erstellen
+%% Ordner fÃ¼r Hilfsdateien erstellen
+% PrÃ¼fen ob Ordner bereits existiert, sonst Ornder erstellen
 
 %% Namen des Orders erstellen
 %dte = (strftime ("%Y-%m-%d", localtime (time ())));
@@ -94,15 +94,15 @@ clear fltidx;
 %
 %if dirNme(end) ~= '\', dirNme = [dirNme, '\']; end;
 
-% Arbeitsverzeichnis öffnen
+% Arbeitsverzeichnis Ã¶ffnen
 cd(pathname);
 
-%% Verzeichnis erstellen falls nötig
+%% Verzeichnis erstellen falls nÃ¶tig
 %if (exist(dirNme, 'dir') == 0); mkdir(dirNme); end;
 
 %% Pfad zum Hilfsverzeichnis aufbauen
 %auxdirpath = sprintf('%s%s%s', pathname, '\', dirNme);
-%% Hilfsverzeichnis öffnen
+%% Hilfsverzeichnis Ã¶ffnen
 %cd(auxdirpath);
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -113,11 +113,11 @@ cd(pathname);
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -
 %--------------------------------------------------
 
-% Zurück in aktuelles Verzeichnis wechseln
+% ZurÃ¼ck in aktuelles Verzeichnis wechseln
 cd(currntdir);
 %.............................................................
 
-% Zeitstempel für das diary erzeugen
+% Zeitstempel fÃ¼r das diary erzeugen
 tstmpDiary = (strftime ("%Y-%m-%d_%H:%M:%S", localtime (time ())));
 txtProg = 'Versuchsplan erstellen';
 txtToDiary = fprintf('\n---------\nLogfile: %s | %s\n---------\n', tstmpDiary, txtProg);
@@ -126,7 +126,7 @@ clear txtToDiary;
 %===============================================
 %%  Dialog mit Nutzer: Anzahl Faktoren
 %===============================================
-%= = = = = = = = = =  
+%= = = = = = = = = =
 %% User input
 txtAnzFktr = sprintf('Anzahl der Einflussfaktoren eingeben:');
 nFktr = round(str2double(inputdlg (txtAnzFktr, 'Mehrstufiger Versuchsplan')));
@@ -138,7 +138,7 @@ clear txtAnzStp;
 % Eingaben auf Vektor speichern
 inptVal = [nFktr; nStp];
 %= = = = = = = = = =
-%   Nutzereigabe prüfen
+%   Nutzereigabe prÃ¼fen
 % Default-Korrekturwerte vorgeben
 corrVal = [3; 2];
 
@@ -191,7 +191,7 @@ endfor
 nFktr = inptVal(1);
 nStp = inptVal(2);
 clear mb1 nDlg inptVal;
-% Mindest-Anzahl der Einflussfaktoren prüfen
+% Mindest-Anzahl der Einflussfaktoren prÃ¼fen
 if nFktr > 1;
   % do nothing
 else
@@ -216,7 +216,7 @@ clear mb1 sprnt1;
 %%  Dialog mit Nutzer: Min/Max-Werte je Faktor
 %===============================================
 % Einflussfaktoren durchlaufen
-%= = = = = = = = = =  
+%= = = = = = = = = =
 
 for nEF = 1:nFktr;
   % Text zum aktuellen Einflussfaktor
@@ -225,7 +225,7 @@ for nEF = 1:nFktr;
   % Minimalwert
   txtEFmin = sprintf('Minimalwert zum EinflussFaktor %d eingeben:', nEF);
   EFmin(nEF) = str2double(inputdlg (txtEFmin, txtTtl));
-  %   Nutzereigabe prüfen
+  %   Nutzereigabe prÃ¼fen
   % Testen auf leer
   if isempty(EFmin(nEF));
     % Standardwert vorgeben
@@ -249,7 +249,7 @@ for nEF = 1:nFktr;
     sprnt1 = sprintf('Ungueltige Eingabe!\nSetze Wert zu: %1.3f', EFmin(nEF));
     mb1 = msgbox(sprnt1, 'Eingabefehler', "help");
     clear sprnt1;
-    % 
+    %
   else
     % Keine Aktion
   endif
@@ -274,7 +274,7 @@ for nEF = 1:nFktr;
   % Maximalwert
   txtEFmax = sprintf('Maximalwert zum EinflussFaktor %d eingeben:', nEF);
   EFmax(nEF) = str2double(inputdlg (txtEFmax, txtTtl));
-  %   Nutzereigabe prüfen
+  %   Nutzereigabe prÃ¼fen
   % Testen auf leer
   if isempty(EFmax(nEF));
     % Standardwert vorgeben
@@ -298,7 +298,7 @@ for nEF = 1:nFktr;
     sprnt1 = sprintf('Ungueltige Eingabe!\nSetze Wert zu: %1.3f', EFmax(nEF));
     mb1 = msgbox(sprnt1, 'Eingabefehler', "help");
     clear sprnt1;
-    % 
+    %
   else
     % Keine Aktion
   endif
@@ -322,25 +322,25 @@ for nEF = 1:nFktr;
   %= = = = = = = = = = = = = = = = = = = = = = =
   % Mid-Werte zu den Einflussfaktoren berechnen
   %= = = = = = = = = = = = = = = = = = = = = = =
-  EFmid(nEF) = mean([EFmin(nEF) ,EFmax(nEF)], "a");
-  
-  
-  
-  
+  EFmid(nEF) = mean([EFmin(nEF) ,EFmax(nEF)], "all");
+
+
+
+
 %  %......................................
 %  % Mittelwerte zu den Einflussfaktoren
 %  %......................................
 %  mwEF(:,nEF) = mean([EFmin(:,nEF), EFmax(:,nEF)]);
-%  
+%
 %  %..........................................................
-%  %   Normierung und Zentrierung Werte zu den Einflussgrößen
+%  %   Normierung und Zentrierung Werte zu den EinflussgrÃ¶ÃŸen
 %  %..........................................................
 %  % Normierung der Werte
 %  nrmEF(1,nEF) = (( EFmin(:, nEF)-mwEF(:,nEF) )/( EFmax(:, nEF)-mwEF(:,nEF)) );
 %  nrmEF(2,nEF) = (( EFmid(:, nEF)-mwEF(:,nEF) )/( EFmid(:, nEF)-mwEF(:,nEF)) );
 %  nrmEF(3,nEF) = (( EFmax(:, nEF)-mwEF(:,nEF) )/( EFmax(:, nEF)-mwEF(:,nEF)) );
-  
-  
+
+
 endfor
 clear txtTtl txtEFmin txtEFmax;
 %= = = = = = = = = =
@@ -352,23 +352,23 @@ clear txtTtl txtEFmin txtEFmax;
 vecVpln = ones(1, nFktr);
 % Unterscheidung der Stufen
 if nStp == 1;
-  % Versuchsplan für eine Stufe
+  % Versuchsplan fÃ¼r eine Stufe
   Vpln = fullfact(nStp * vecVpln);
   % Text zur Stufe des Versuchsplans
   txtVplnStp = 'einstufige';
-  
+
 elseif nStp == 2;
-  % Versuchsplan für zwei Stufen
+  % Versuchsplan fÃ¼r zwei Stufen
   Vpln = fullfact(nStp * vecVpln);
   % Text zur Stufe des Versuchsplans
   txtVplnStp = 'zweistufige';
-  
+
 else
-  % Versuchsplan für drei Stufe
+  % Versuchsplan fÃ¼r drei Stufe
   Vpln = fullfact(nStp * vecVpln);
   % Text zur Stufe des Versuchsplans
   txtVplnStp = 'dreistufige';
-  
+
 endif
 %
 
@@ -460,11 +460,11 @@ txtVpln = sprintf('Versuch ;');
 hdrVpln(1,(1:size(txtVpln,2))) = txtVpln;
 %   Header vorbereiten
 for nC = 1 : (size(VplnVal,2));
-  % Text der nächsten Spalte
+  % Text der nÃ¶chsten Spalte
   txtNxtCol = sprintf('Faktor %s;', num2str(nC));
   % Zeichenkette aufbauen
   hdrVpln(1,((nC*size(txtNxtCol,2)+1):((nC*size(txtNxtCol,2)) + size(txtNxtCol,2)))) = txtNxtCol;
-  
+
 endfor
   %
 clear nC txtNxtCol;
@@ -490,10 +490,10 @@ clear nC txtNxtCol;
 
 
 % In Arbeitsverzeichnis wechseln
-cd(pathname);   % Verzeichnis der Arbeitsdatei öffnen
+cd(pathname);   % Verzeichnis der Arbeitsdatei Ã¶ffnen
 
-%% Ordner für Hilfsdateien erstellen
-% Prüfen ob Ordner bereits existiert, sonst Ornder erstellen
+%% Ordner fÃ¼r Hilfsdateien erstellen
+% PrÃ¼fen ob Ordner bereits existiert, sonst Ornder erstellen
 if (exist(auxdirpath, 'dir') == 0)
   % Namen des Orders erstellen
   dte = (strftime ("%Y-%m-%d", localtime (time ())));
@@ -503,19 +503,19 @@ if (exist(auxdirpath, 'dir') == 0)
 
   if dirNme(end) ~= '\', dirNme = [dirNme, '\'];else; endif;
 
-  % Arbeitsverzeichnis öffnen
+  % Arbeitsverzeichnis Ã¶ffnen
   cd(pathname);
 
-  % Verzeichnis erstellen falls nötig
+  % Verzeichnis erstellen falls nÃ¶tig
   if (exist(dirNme, 'dir') == 0); mkdir(dirNme);else; endif;
 
   % Pfad zum Hilfsverzeichnis aufbauen
   auxdirpath = sprintf('%s%s%s', pathname, '\', dirNme);
-  
+
 else
-  % Hilfsverzeichnis öffnen
+  % Hilfsverzeichnis Ã¶ffnen
   cd(auxdirpath);
-  
+
 endif
 
 
@@ -559,8 +559,8 @@ clear nR valZle;
 %clear nR valZle;
 %%------------------
 
-%% Informationsdatei durch Systemprogramm öffnen lassen
-%winopen('auxInfoAbout.txt'); <- Nur in MATLAB möglich
+%% Informationsdatei durch Systemprogramm Ã¶ffnen lassen
+%winopen('auxInfoAbout.txt'); <- Nur in MATLAB mÃ¶glich
 
 %= = = = = = = = = =
 % Open an external file with an external program
@@ -571,13 +571,13 @@ catch ME
 end_try_catch
 %= = = = = = = = = =
 
-% Zurück in aktuelles Verzeichnis wechseln
+% ZurÃ¼ck in aktuelles Verzeichnis wechseln
 cd(currntdir);
 
 %= = = = = = = = = = = = = = = = = = = = = = = = = = = =
 %% Datenstruktur erstellen und Darstellen
 %= = = = = = = = = = = = = = = = = = = = = = = = = = = =
-% Anzahl der Einflussfaktoren und Stufen prüfen
+% Anzahl der Einflussfaktoren und Stufen prÃ¼fen
 if nFktr == 2 && nStp == 2;
   % Datenstruktur erstellen
   vRm = rEck(EFmin, EFmax);
@@ -625,26 +625,26 @@ function vRm = rEck(EFmin, EFmax)
 % Die Daten-Punkte der Struktur in einem STRUCT ablegen
 %
 % 4 Punkte der Struktur (Eckpunkte)
-%            1  2  3  4 
+%            1  2  3  4
 %vRm.p = [[ -x  x  x -x ]; ...
 %         [ -y -y  y  y ]];
-%          1        2        3        4       
+%          1        2        3        4
 vRm.p = [[ EFmin(1) EFmax(1) EFmax(1) EFmin(1)]; ...
          [ EFmin(2) EFmin(2) EFmax(2) EFmax(2)]];
 
-% 4 Linien (Drähte) der Struktur
-%    Draht 1 2 3 4 
+% 4 Linien (DrÃ¤hte) der Struktur
+%    Draht 1 2 3 4
 %vRm.l = [[1 2 3 4]; ...
 %         [2 3 4 1]];
-       
+
 vRm.l = [[1 2 3 4]; ...
          [2 3 4 1]];
-       
-endfunction 
+
+endfunction
 
 %= = = = = = = = = = = = = = = = = = = = = = = = = = = =
 %% Funktion: Erstellung der Datenstruktur mit Zentralpunkt
-%= = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+%= = = = = = = = = = = = = = = = = = = = = = = = = = = =
 function vRm = rEckZP(EFmin, EFmax, EFmid)
 %% Datenstruktur des Quaders
 % Nach den Unterlagen zur Vorlesung Ingenieurwissenschaftliche
@@ -660,16 +660,16 @@ function vRm = rEckZP(EFmin, EFmax, EFmid)
 vRm.p = [[ EFmin(1) EFmax(1) EFmax(1) EFmin(1) EFmid(1) EFmid(1) EFmax(1) EFmid(1) EFmin(1) ]; ...
          [ EFmin(2) EFmin(2) EFmax(2) EFmax(2) EFmid(2) EFmin(2) EFmid(2) EFmax(2) EFmid(2) ]];
 
-% 4 Linien (Drähte) der Struktur
+% 4 Linien (DrÃ¤hte) der Struktur
 %    Draht 1 2 3 4 5 6 7 8
 %vRm.l = [[1 2 3 4 1 2 3 4]; ...
 %         [2 3 4 1 5 5 5 5]];
 
 %   Draht 0 0 0 0 0 0 0 0 0 1 1 1
-%   Draht 1 2 3 4 5 6 7 8 9 0 1 2       
+%   Draht 1 2 3 4 5 6 7 8 9 0 1 2
 vRm.l = [[1 2 3 4 1 2 3 4 1 2 3 4]; ...
          [2 3 4 1 5 5 5 5 6 7 8 9]];
-       
+
 endfunction
 
 %= = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -687,22 +687,22 @@ function vRm = quader(EFmin, EFmax)
 %vRm.p = [[ -x  x  x -x -x  x  x -x]; ...
 %         [ -y -y  y  y -y -y  y  y]; ...
 %         [ -z -z -z -z  z  z  z  z]];
-%          1        2        3        4        5        6        7        8       
+%          1        2        3        4        5        6        7        8
 vRm.p = [[ EFmin(1) EFmax(1) EFmax(1) EFmin(1) EFmin(1) EFmax(1) EFmax(1) EFmin(1)]; ...
          [ EFmin(2) EFmin(2) EFmax(2) EFmax(2) EFmin(2) EFmin(2) EFmax(2) EFmax(2)]; ...
          [ EFmin(3) EFmin(3) EFmin(3) EFmin(3) EFmax(3) EFmax(3) EFmax(3) EFmax(3)]];
 
-% 12 Linien (Drähte) der Struktur
+% 12 Linien (DrÃ¤hte) der Struktur
 % Draht 0 0 0 0 0 0 0 0 0 1 1 1
 % Draht 1 2 3 4 5 6 7 8 9 0 1 2
 %vRm.l = [[1 2 3 4 5 6 7 8 1 2 3 4]; ...
 %       [2 3 4 1 6 7 8 5 5 6 7 8]];
 
 %   Draht 0 0 0 0 0 0 0 0 0 1 1 1
-%   Draht 1 2 3 4 5 6 7 8 9 0 1 2       
+%   Draht 1 2 3 4 5 6 7 8 9 0 1 2
 vRm.l = [[1 2 3 4 5 6 7 8 1 2 3 4]; ...
          [2 3 4 1 6 7 8 5 5 6 7 8]];
-       
+
 endfunction
 
 %= = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -728,12 +728,12 @@ function vRm = quaderZP(EFmin, EFmax, EFmid)
 %         [ -y -y  y  y -y -y  y  y  0 -y  0  y  0 -y -y  y  y -y  0  y  0]; ...
 %         [ -z -z -z -z  z  z  z  z  0 -z -z -z -z  0  0  0  0  z  z  z  z]];
 
-%          1        2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21               
+%          1        2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
 vRm.p = [[ EFmin(1) EFmax(1) EFmax(1) EFmin(1) EFmin(1) EFmax(1) EFmax(1) EFmin(1) EFmid(1) EFmid(1) EFmax(1) EFmid(1) EFmin(1) EFmin(1) EFmax(1) EFmax(1) EFmin(1) EFmid(1) EFmax(1) EFmid(1) EFmin(1)]; ...
          [ EFmin(2) EFmin(2) EFmax(2) EFmax(2) EFmin(2) EFmin(2) EFmax(2) EFmax(2) EFmid(2) EFmin(2) EFmid(2) EFmax(2) EFmid(2) EFmin(2) EFmin(2) EFmax(2) EFmax(2) EFmin(2) EFmid(2) EFmax(2) EFmid(2)]; ...
          [ EFmin(3) EFmin(3) EFmin(3) EFmin(3) EFmax(3) EFmax(3) EFmax(3) EFmax(3) EFmid(3) EFmin(3) EFmin(3) EFmin(3) EFmin(3) EFmid(3) EFmid(3) EFmid(3) EFmid(3) EFmax(3) EFmax(3) EFmax(3) EFmax(3)]];
 
-              
+
 %vRm.p = [[ EFmin(1) EFmax(1) EFmax(1) EFmin(1) EFmin(1) EFmax(1) EFmax(1) ...
 %           EFmin(1) EFmid(1) EFmid(1) EFmax(1) EFmid(1) EFmin(1) EFmid(1) ...
 %           EFmax(1) EFmid(1) EFmin(1) EFmid(1) EFmax(1) EFmid(1) EFmin(1)]; ...
@@ -744,17 +744,17 @@ vRm.p = [[ EFmin(1) EFmax(1) EFmax(1) EFmin(1) EFmin(1) EFmax(1) EFmax(1) EFmin(
 %           EFmax(3) EFmid(3) EFmin(3) EFmin(3) EFmin(3) EFmin(3) EFmid(3) ...
 %           EFmid(3) EFmid(3) EFmid(3) EFmax(3) EFmax(3) EFmax(3) EFmax(3)]];
 
-% 12 Linien (Drähte) der Struktur
+% 12 Linien (DrÃ¤hte) der Struktur
 %    Draht 0 0 0 0 0 0 0 0 0 1 1 1 1
 %    Draht 1 2 3 4 5 6 7 8 9 0 1 2 3
 %vRm.l = [[1 2 3 4 5 6 7 8 1 2 3 4 1]; ...
 %         [2 3 4 1 6 7 8 5 5 6 7 8 9]];
 
 %   Draht 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2  2  2  2  2  2  2  2  2  2  3  3  3
-%   Draht 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0  1  2  3  4  5  6  7  8  9  0  1  2    
+%   Draht 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0  1  2  3  4  5  6  7  8  9  0  1  2
 vRm.l = [[1 2 3 4 5 6 7 8 1 2 3 4 1 2 3 4 5 6 7 8  1  2  3  4  5  6  7  8  5  6  7  8]; ...
          [2 3 4 1 6 7 8 5 5 6 7 8 9 9 9 9 9 9 9 9 10 11 12 13 14 15 16 17 18 19 20 21]];
-       
+
 endfunction
 
 
@@ -768,15 +768,15 @@ function show2D(b, VplnVal)
 % Softwarewerkzeuge (IWSW):
 % Funktion zum erstellen eines Koordinatenkreuzes
 
-% Achsenlänge des Koordinatenkreuzes
+% AchsenlÃ¤nge des Koordinatenkreuzes
 kl = 1.25*(max(max(VplnVal)));
 
 % Koordinatenkreuz als Platzhalter und zur Orientierung erzeugen
 k2=kl/2;
-% Eselsbrücke "RGB" für Farben der Achsen X, Y, Z
+% EselsbrÃ¼cke "RGB" fÃ¼r Farben der Achsen X, Y, Z
 %
 % Erstellen eines figure windows und dieses auf handle referenzieren
-fg212 = figure(212); 
+fg212 = figure(212);
 % Eigenschaften zum handle antragen, durch den Befehl set(...)
 set(fg212,'Name','Darstellung der Versuchspunkte','NumberTitle','off');
 % relative Angabe [left bottom width height]
@@ -797,10 +797,10 @@ plot3([0 0],   [0 0],   [0 -k2], 'b:', 'Linewidth', 1.5);
 %
 % Nach den Unterlagen zur Vorlesung Ingenieurwissenschaftliche
 % Softwarewerkzeuge (IWSW):
-% Darstellung des übermittelten Körpers
+% Darstellung des Ã¼bermittelten KÃ¶rpers
 hold on;
 
-% Darstellung des übermittelten Körpers b
+% Darstellung des Ã¼bermittelten KÃ¶rpers b
 for k = (1:size(b.l,2)) % bis Anzahl der Spalten der Matrix b.l
     plot3([b.p(1,b.l(1,k)) b.p(1,b.l(2,k))],...
           [b.p(2,b.l(1,k)) b.p(2,b.l(2,k))],'ko-', 'MarkerFaceColor', 'r');
@@ -814,7 +814,7 @@ ylabel('Faktor: X_{2}');
 axis auto;%square equal
 % Einstellungen zur Ansicht
 view(0, 90); %view(3);
-% Einfügen der Legende
+% EinfÃ¼gen der Legende
 hlg01 = legend('X_{1}','X_{2}','Location','Eastoutside',...
                 'Orientation', 'Vertical');
 set(hlg01, 'FontSize',12);
@@ -832,15 +832,15 @@ function show(b, VplnVal)
 % Softwarewerkzeuge (IWSW):
 % Funktion zum erstellen eines Koordinatenkreuzes
 
-% Achsenlänge des Koordinatenkreuzes
+% AchsenlÃ¤nge des Koordinatenkreuzes
 kl = 1.25*(max(max(VplnVal)));
 
 % Koordinatenkreuz als Platzhalter und zur Orientierung erzeugen
 k2=kl/2;
-% Eselsbrücke "RGB" für Farben der Achsen X, Y, Z
+% EselsbrÃ¼cke "RGB" fÃ¼r Farben der Achsen X, Y, Z
 %
 % Erstellen eines figure windows und dieses auf handle referenzieren
-fg212 = figure(212); 
+fg212 = figure(212);
 % Eigenschaften zum handle antragen, durch den Befehl set(...)
 set(fg212,'Name','Darstellung der Versuchspunkte','NumberTitle','off');
 % relative Angabe [left bottom width height]
@@ -861,10 +861,10 @@ plot3([0 0],   [0 0],   [0 -k2], 'b:', 'Linewidth', 1.5);
 %
 % Nach den Unterlagen zur Vorlesung Ingenieurwissenschaftliche
 % Softwarewerkzeuge (IWSW):
-% Darstellung des übermittelten Körpers
+% Darstellung des Ã¼bermittelten KÃ¶rpers
 hold on;
 
-% Darstellung des übermittelten Körpers b
+% Darstellung des Ã¼bermittelten KÃ¶rpers b
 for k = (1:size(b.l,2)) % bis Anzahl der Spalten der Matrix b.l
     plot3([b.p(1,b.l(1,k)) b.p(1,b.l(2,k))],...
           [b.p(2,b.l(1,k)) b.p(2,b.l(2,k))],...
@@ -880,7 +880,7 @@ zlabel('Faktor: X_{3}');
 axis auto;%square equal
 % Einstellungen zur Ansicht
 view(350, 60); %view(3);
-% Einfügen der Legende
+% EinfÃ¼gen der Legende
 hlg01 = legend('X_{1}','X_{2}','X_{3}','Location','Eastoutside',...
                 'Orientation', 'Vertical');
 set(hlg01, 'FontSize',12);
@@ -901,19 +901,19 @@ endfunction
 %%dirpath = 'auxData2LaTeXtabular';
 %if dirNme(end) ~= '/', dirNme = [dirNme '/']; end;
 %
-%% Arbeitsverzeichnis öffnen
+%% Arbeitsverzeichnis Ã¶ffnen
 %cd(pathname);
 %
-%% Prüfen ob der Hilfsordner bereits existiert
+%% PrÃ¼fen ob der Hilfsordner bereits existiert
 %if (exist(dirNme, 'dir') > 0);
 %    % Pfad zum Hilfsverzeichnis aufbauen
 %    auxdirpath = sprintf('%s%s', pathname, dirNme);%
-%    % Hilfsverzeichnis der Logdatei öffnen
+%    % Hilfsverzeichnis der Logdatei Ã¶ffnen
 %    cd(auxdirpath);
-%    % Prüfen ob LogFile bereits existiert
+%    % PrÃ¼fen ob LogFile bereits existiert
 %    if (exist('auxLogFile.txt','file') > 0);
-%        % Logdatei durch Systemprogramm öffnen lassen
-%        %winopen('auxLogFile.txt'); <- Nur in MATLAB möglich
+%        % Logdatei durch Systemprogramm Ã¶ffnen lassen
+%        %winopen('auxLogFile.txt'); <- Nur in MATLAB mÃ¶glich
 %        %= = = = = = = = = =
 %        % Open an external file with an external program
 %        open('auxLogFile.txt');
@@ -921,7 +921,7 @@ endfunction
 %    end%file
 %end%dirpath
 %
-%% Zurück in aktuelles Verzeichnis wechseln
+%% ZurÃ¼ck in aktuelles Verzeichnis wechseln
 %cd(currntdir);
 %
 %endfunction
